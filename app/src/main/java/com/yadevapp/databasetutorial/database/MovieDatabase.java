@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.yadevapp.databasetutorial.R;
+
 /**
  * Created by abdoulaye on 7/11/16.
  * the database helper class
@@ -14,9 +16,20 @@ import android.util.Log;
  */
 public class MovieDatabase extends SQLiteOpenHelper {
     private final String TAG = getClass().getSimpleName();
+    private Context mContext;
 
-    public MovieDatabase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    //database columns
+    public static final String KEY_NAME = "name";
+    public static final String KEY_YEAR = "year";
+    public static final String KEY_ID = "_id";
+    public static final String KEY_TYPE = "type";
+
+    public MovieDatabase(Context context) {
+        super(context,
+                context.getResources().getString(R.string.moviedatabase_name),
+                null,
+                context.getResources().getInteger(R.integer.moviedatabase_version));
+        mContext = context;
         Log.d(TAG, "MovieDatabase");
     }
 
@@ -27,6 +40,14 @@ public class MovieDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         Log.d(TAG,"onCreate");
+
+        String createMovieTableString =
+                " CREATE TABLE " + mContext.getResources().getString(R.string.moviedatabase_name) + "("
+                        + KEY_ID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,"
+                        + KEY_NAME  + " TEXT ,"
+                        + KEY_YEAR + " INTEGER ,"
+                        + KEY_TYPE + " TEXT )";
+        sqLiteDatabase.execSQL(createMovieTableString);
     }
 
     /**
