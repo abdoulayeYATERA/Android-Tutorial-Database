@@ -18,7 +18,17 @@ public class MovieDatabase extends SQLiteOpenHelper {
     private final String TAG = getClass().getSimpleName();
     private Context mContext;
 
-    //database columns
+    //database name
+    public static final String NAME = "movieDatabase";
+    //database authority
+    public static final String AUTHORITY = "movieDatabase.authority";
+    //database version
+    public static final int  VERSION = 1;
+    //movieTable name
+    public static final String MOVIE_TABLE_NAME = "movieTable";
+    //movieTable uri match int
+    public static final int MOVIE_TABLE_URI_MATCH_INT = 689;
+    //movieTable columns
     public static final String KEY_NAME = "name";
     public static final String KEY_YEAR = "year";
     public static final String KEY_ID = "_id";
@@ -26,9 +36,9 @@ public class MovieDatabase extends SQLiteOpenHelper {
 
     public MovieDatabase(Context context) {
         super(context,
-                context.getResources().getString(R.string.moviedatabase_name),
+                NAME,
                 null,
-                context.getResources().getInteger(R.integer.moviedatabase_version));
+                VERSION);
         mContext = context;
         Log.d(TAG, "MovieDatabase");
     }
@@ -42,7 +52,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
         Log.d(TAG,"onCreate");
 
         String createMovieTableString =
-                " CREATE TABLE " + mContext.getResources().getString(R.string.moviedatabase_name) + "("
+                " CREATE TABLE " + NAME + "("
                         + KEY_ID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,"
                         + KEY_NAME  + " TEXT ,"
                         + KEY_YEAR + " INTEGER ,"
