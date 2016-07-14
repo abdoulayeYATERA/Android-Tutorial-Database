@@ -1,0 +1,5 @@
+<resources>
+    <integer name="moviedatabase_version">1</integer>
+    <string name="moviedatabase_name">movieDatabase</string>
+    <string name="moviedatabase_authority">movieDatabase.authority</string>
+</resources>
