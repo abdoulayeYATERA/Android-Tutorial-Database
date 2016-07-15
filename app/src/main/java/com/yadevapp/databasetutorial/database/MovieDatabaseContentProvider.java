@@ -7,8 +7,9 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.io.File;
 
 /**
  * Created by salou on 7/11/16.
@@ -31,20 +32,20 @@ public class MovieDatabaseContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
+        Log.d(TAG, "onCreate");
         mMovieDatabase = new MovieDatabase(getContext());
         return false;
     }
 
-    @Nullable
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        Log.d(TAG, "insert");
+        Log.d(TAG, "insert " + uri.toString());
         Cursor cursor = null;
 
         if (mURIMatcher.match(uri) == MovieDatabase.MOVIE_TABLE_URI_MATCH_INT) {
             SQLiteDatabase dp = mMovieDatabase.getWritableDatabase();
-             cursor = dp.query(MovieDatabase.MOVIE_TABLE_NAME,
+            cursor = dp.query(MovieDatabase.MOVIE_TABLE_NAME,
                     projection,
                     selection,
                     selectionArgs,
@@ -58,13 +59,11 @@ public class MovieDatabaseContentProvider extends ContentProvider {
         return cursor;
     }
 
-    @Nullable
     @Override
     public String getType(Uri uri) {
         return null;
     }
 
-    @Nullable
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
         Log.d(TAG, "insert");
@@ -72,13 +71,16 @@ public class MovieDatabaseContentProvider extends ContentProvider {
         if(mURIMatcher.match(uri) == MovieDatabase.MOVIE_TABLE_URI_MATCH_INT) {
             SQLiteDatabase db = mMovieDatabase.getWritableDatabase();
 
-            if(db.insert(MovieDatabase.MOVIE_TABLE_NAME, null, contentValues) == -1) {
+            if(db.insert(MovieDatabase.MOVIE_TABLE_NAME, null, contentValues) != -1) {
                 Log.d(TAG, "insert suceed");
             } else {
                 Log.e(TAG, "insert failed");
             }
+
+            getContext().getContentResolver().notifyChange(uri, null);
+        } else {
+            Log.e(TAG, "wrong uri");
         }
-        getContext().getContentResolver().notifyChange(uri,null);
         return null;
     }
 

@@ -29,8 +29,32 @@ public class MovieListCursorAdapter extends CursorAdapter  {
 
     public MovieListCursorAdapter(Context context, Cursor cursor, int flags) {
         super(context, cursor, flags);
+        Log.d(TAG, "MovieListCursorAdapter");
         mContext = context;
         mMovieCursor = cursor;
+    }
+
+    /**
+     * update the cursor
+     * @param newCursor
+     * @return the new cursor
+     */
+    @Override
+    public Cursor swapCursor(Cursor newCursor) {
+        Log.d(TAG, "swapCursor");
+        mMovieCursor = newCursor;
+        return super.swapCursor(newCursor);
+    }
+
+    @Override
+    public int getCount() {
+        Log.d(TAG, "getCount");
+        int count = 0;
+
+        if (mMovieCursor != null) {
+           count = mMovieCursor.getCount();
+        }
+        return count;
     }
 
     /**
@@ -58,7 +82,7 @@ public class MovieListCursorAdapter extends CursorAdapter  {
             movieAdapterViewHolder = (MovieAdapterViewHolder) view.getTag();
         }
         //move the cursor to the good position
-        mMovieCursor.move(i);
+        mMovieCursor.moveToPosition(i);
         //get the movie of that position
         Movie movie = new Movie();
         movie.setmName(mMovieCursor.getString(mMovieCursor.getColumnIndex(MovieDatabase.KEY_NAME)));
