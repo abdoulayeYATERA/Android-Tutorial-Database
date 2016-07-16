@@ -47,17 +47,6 @@ public class MovieListCursorAdapter extends CursorAdapter  {
         return super.swapCursor(newCursor);
     }
 
-    /*@Override
-    public int getCount() {
-
-        Log.d(TAG, "getCount");
-        int count = 0;
-
-        if (mMovieCursor != null) {
-           count = mMovieCursor.getCount();
-        }
-        return count;
-    }*/
 
     /**
      * @param i position in the cursor
