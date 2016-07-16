@@ -23,6 +23,7 @@
         android:id="@+id/activity_main_movie_year_edittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:hint="@string/new_movie_year_edittext_hint"/>
 
     <Button

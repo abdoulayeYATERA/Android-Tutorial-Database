@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.yadevapp.databasetutorial.R;
 import com.yadevapp.databasetutorial.adapter.MovieListCursorAdapter;
@@ -66,11 +67,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String movieToAddType = mNewMovieTypeEditText.getText().toString();
                 int movieToAddYear = Integer.valueOf(mNewMovieYearEditText.getText().toString());
 
-                movieToAdd.setmName(movieToAddName);
-                movieToAdd.setmType(movieToAddType);
-                movieToAdd.setmYear(movieToAddYear);
-                //add the movie to the table
-                addMovieToDatabase(movieToAdd);
+                if (movieToAddName != null && !movieToAddName.isEmpty()
+                        && movieToAddType != null && !movieToAddType.isEmpty()
+                        && movieToAddYear > 0) {
+                    //the form is correctly completed
+                    movieToAdd.setmName(movieToAddName);
+                    movieToAdd.setmType(movieToAddType);
+                    movieToAdd.setmYear(movieToAddYear);
+                    //add the movie to the table
+                    addMovieToDatabase(movieToAdd);
+                } else {
+                    //the form is not correctly completed
+                    Toast.makeText(MainActivity.this,
+                            getResources().getString(R.string.wrong_form_toast_message),
+                            Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.activity_main_update_button:
                 updateMovieList();
@@ -108,5 +119,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MovieDatabase.MOVIE_TABLE_URI,
                 contentValues
         );
+        Toast.makeText(MainActivity.this, getString(R.string.database_insert_toast_message), Toast.LENGTH_LONG).show();
     }
 }

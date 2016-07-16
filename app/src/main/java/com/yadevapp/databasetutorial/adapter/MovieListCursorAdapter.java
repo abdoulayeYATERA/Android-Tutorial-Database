@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -46,8 +47,9 @@ public class MovieListCursorAdapter extends CursorAdapter  {
         return super.swapCursor(newCursor);
     }
 
-    @Override
+    /*@Override
     public int getCount() {
+
         Log.d(TAG, "getCount");
         int count = 0;
 
@@ -55,7 +57,7 @@ public class MovieListCursorAdapter extends CursorAdapter  {
            count = mMovieCursor.getCount();
         }
         return count;
-    }
+    }*/
 
     /**
      * @param i position in the cursor
@@ -124,7 +126,7 @@ public class MovieListCursorAdapter extends CursorAdapter  {
             titleTextView = (TextView) row.findViewById(R.id.item_listview_title);
             yearTextView = (TextView) row.findViewById(R.id.item_listview_year);
             typetextView = (TextView) row.findViewById(R.id.item_listview_type);
-        }
+          }
 
         //getters
         public TextView getTitleTextView() {

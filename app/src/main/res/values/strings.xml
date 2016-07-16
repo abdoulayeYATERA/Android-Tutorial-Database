@@ -5,4 +5,6 @@
     <string name="new_movie_type_edittext_hint">Type movie type</string>
     <string name="new_movie_year_edittext_hint">Type movie year</string>
     <string name="new_movie_add_button_text">Create Movie</string>
+    <string name="wrong_form_toast_message">Please fill out all required fields</string>
+    <string name="database_insert_toast_message">Movie added</string>
 </resources>
