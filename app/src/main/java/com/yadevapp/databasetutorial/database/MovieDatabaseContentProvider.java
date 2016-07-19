@@ -14,6 +14,10 @@ import java.io.File;
 /**
  * Created by salou on 7/11/16.
  * the movie database content provider
+ * we dont really need this provider to access our own database,
+ * but if you want to share the database content with others apps we will need
+ * it to give them the access
+ *
  */
 public class MovieDatabaseContentProvider extends ContentProvider {
     private  final String TAG = getClass().getSimpleName();
@@ -34,7 +38,7 @@ public class MovieDatabaseContentProvider extends ContentProvider {
     public boolean onCreate() {
         Log.d(TAG, "onCreate");
         mMovieDatabase = new MovieDatabase(getContext());
-        return false;
+        return true;
     }
 
     @Override
@@ -86,11 +90,15 @@ public class MovieDatabaseContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String s, String[] strings) {
+        //no implemented, there no delete in this tutorial
+        //but the process is the same as insert or query
         return 0;
     }
 
     @Override
     public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
+        //no implemented, there no delete in this tutorial
+        //but the process is the same as insert or query
         return 0;
     }
 }

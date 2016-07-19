@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText mNewMovieYearEditText;
     private EditText mNewMovieTypeEditText;
     private MovieListCursorAdapter mMovieListCursorAdapter;
-    private MovieDatabaseContentProvider mMovieDatabaseContentProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNewMovieTypeEditText = (EditText) findViewById(R.id.activity_main_movie_type_edittext);
         mUpdateListButton = (Button) findViewById(R.id.activity_main_update_button);
         mAddMovieButton = (Button) findViewById(R.id.activity_main_add_movie_button);
-        //instanciate the contentprovider
-        mMovieDatabaseContentProvider = new MovieDatabaseContentProvider();
         //instanciate the adapter
         mMovieListCursorAdapter = new MovieListCursorAdapter(this, null, 0);
         //set the adapter to the listview
@@ -51,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //set the buttons listeners
         mUpdateListButton.setOnClickListener(this);
         mAddMovieButton.setOnClickListener(this);
-        //updateMovieList();
     }
 
     @Override

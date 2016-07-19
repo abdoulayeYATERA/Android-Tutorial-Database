@@ -21,7 +21,10 @@ import java.util.ArrayList;
 
 /**
  * Created by abdoulaye on 7/7/16.
- */
+ * our adapter, the data source is the cursor we get from the database request,
+ * when we do a request we swap this adapter cursor with the new one,
+ * see the method {@link MovieAdapterViewHolder#swapCursor(Cursor)}
+ * */
 public class MovieListCursorAdapter extends CursorAdapter  {
     private final String TAG = getClass().getSimpleName();
     private Cursor mMovieCursor;
