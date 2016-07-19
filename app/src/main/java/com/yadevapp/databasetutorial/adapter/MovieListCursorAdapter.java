@@ -71,7 +71,7 @@ public class MovieListCursorAdapter extends CursorAdapter  {
             //set the view holder has view's tag
             view.setTag(movieAdapterViewHolder);
         } else {
-            //the view is not null, we reuse (no need to inflate)
+            //the view is not null, we reuse (no need to inflate, inflating may be very slow depending on the complexity on the layout to inflate)
             //we get the view holder from the view's tag
             movieAdapterViewHolder = (MovieAdapterViewHolder) view.getTag();
         }
