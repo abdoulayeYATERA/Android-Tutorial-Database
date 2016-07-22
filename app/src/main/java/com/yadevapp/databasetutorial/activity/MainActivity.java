@@ -1,8 +1,11 @@
 package com.yadevapp.databasetutorial.activity;
 
 import android.content.ContentValues;
+import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +51,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //set the buttons listeners
         mUpdateListButton.setOnClickListener(this);
         mAddMovieButton.setOnClickListener(this);
+
+        //create our loaderCursor Callback
+        LoaderManager.LoaderCallbacks<Cursor> loaderCursorCallback = new LoaderManager.LoaderCallbacks<Cursor>() {
+            @Override
+            public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                Log.d(TAG, "onCreateLoader");
+                //create the query for the database
+                CursorLoader cursorLoader = new CursorLoader(
+                        //Context
+                        MainActivity.this,
+                        //Uri
+                        MovieDatabase.MOVIE_TABLE_URI,
+                        //projection
+                        null,
+                        //selection
+                        null,
+                        //selection Args
+                        null,
+                        //sortOrder
+                        null
+                );
+                return cursorLoader;
+            }
+
+            @Override
+            public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
+                Log.d(TAG, "onLoadFinished");
+                //this is called anytime the databse is modified, with the new cursor
+                //cursor update
+                mMovieListCursorAdapter.swapCursor(data);
+            }
+
+            @Override
+            public void onLoaderReset(android.support.v4.content.Loader<Cursor> loader) {
+                Log.d(TAG, "onLoaderReset");
+            }
+        };
+
+        //launch our CursorLoader
+        getSupportLoaderManager().initLoader(
+                0,
+                null,
+                loaderCursorCallback);
+
+
+
     }
 
     @Override
