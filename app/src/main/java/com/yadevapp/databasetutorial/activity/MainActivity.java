@@ -26,7 +26,6 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getSimpleName();
     private ListView mListView;
-    private Button mUpdateListButton;
     private Button mAddMovieButton;
     private EditText mNewMovieNameEditText;
     private EditText mNewMovieYearEditText;
@@ -42,14 +41,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNewMovieNameEditText = (EditText) findViewById(R.id.activity_main_movie_name_edittext);
         mNewMovieYearEditText = (EditText) findViewById(R.id.activity_main_movie_year_edittext);
         mNewMovieTypeEditText = (EditText) findViewById(R.id.activity_main_movie_type_edittext);
-        mUpdateListButton = (Button) findViewById(R.id.activity_main_update_button);
         mAddMovieButton = (Button) findViewById(R.id.activity_main_add_movie_button);
         //instanciate the adapter
         mMovieListCursorAdapter = new MovieListCursorAdapter(this, null, 0);
         //set the adapter to the listview
         mListView.setAdapter(mMovieListCursorAdapter);
         //set the buttons listeners
-        mUpdateListButton.setOnClickListener(this);
         mAddMovieButton.setOnClickListener(this);
 
         //create our loaderCursor Callback
@@ -58,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
                 Log.d(TAG, "onCreateLoader");
                 //create the query for the database
+                //the response of this query will be received (without any additional request)
+                //any time the table is modified
                 CursorLoader cursorLoader = new CursorLoader(
                         //Context
                         MainActivity.this,
@@ -94,9 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 0,
                 null,
                 loaderCursorCallback);
-
-
-
     }
 
     @Override
@@ -127,9 +123,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             getResources().getString(R.string.wrong_form_toast_message),
                             Toast.LENGTH_LONG).show();
                 }
-                break;
-            case R.id.activity_main_update_button:
-                updateMovieList();
                 break;
         }
     }
